@@ -145,11 +145,25 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Card.h" />
+    <ClInclude Include="CardDeck.h" />
+    <ClInclude Include="Dealer.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameDisplay.h" />
+    <ClInclude Include="Hand.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="CardDeck.cpp" />
+    <ClCompile Include="Dealer.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameDisplay.cpp" />
+    <ClCompile Include="Hand.cpp" />
     <ClCompile Include="mhong_assignment4.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
