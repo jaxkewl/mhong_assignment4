@@ -14,6 +14,8 @@ public:
 	void dealCard(Player & p);
 	void dealCard();
 	Card hit();
+	void showAllCards();
+	void clearHand();
 
 private:
 	Hand hand;

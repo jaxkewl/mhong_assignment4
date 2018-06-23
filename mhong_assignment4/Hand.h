@@ -11,6 +11,8 @@ public:
 	string toString();
 	void addCard(Card & c);
 	int getVal();
+	void showAllCards();
+	void clear();
 private:
 	list<Card> cards;
 	int pointVal = 0;

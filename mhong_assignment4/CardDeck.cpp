@@ -13,6 +13,7 @@ CardDeck::~CardDeck()
 
 }
 
+//pop one card off the card deck
 Card CardDeck::getCard()
 {
 	if (!cards.empty())
@@ -25,6 +26,7 @@ Card CardDeck::getCard()
 	return c;
 }
 
+//get all the cards from the card deck
 list<Card> CardDeck::getCards()
 {
 	if (cards.empty())

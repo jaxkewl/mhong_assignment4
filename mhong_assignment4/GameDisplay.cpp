@@ -12,6 +12,7 @@ GameDisplay::~GameDisplay()
 }
 
 
+//ask player to place a bet
 void GameDisplay::placeBet()
 {
 	bool goodBet = false;
@@ -25,13 +26,16 @@ void GameDisplay::placeBet()
 		if (playerBet <= game.getPlayer().getPlayerBalance() &&
 			playerBet > 0)
 		{
-			game.getPlayer().setPlayerBalance(playerBet);
+			game.setPlayerBet(playerBet);
+
+			game.getPlayer().setPlayerBalance(game.getPlayer().getPlayerBalance() - playerBet);
 			goodBet = true;
 		}
 
 	}
 }
 
+//show the dealers cards, skipping the one card not visible
 void GameDisplay::showDealerCards()
 {
 	Dealer &d = game.getDealer();
@@ -39,13 +43,15 @@ void GameDisplay::showDealerCards()
 	cout << d.getHand().toString().c_str() << endl;
 }
 
+//display the player's card. all the cards are visible
 void GameDisplay::showPlayerCards()
 {
 	cout << "Player Cards:" << endl;
 	cout << game.getPlayer().getHand().toString().c_str() << endl;
+	cout << "Value: " << game.getPlayer().getHand().getVal() << endl;
 }
 
-
+//ask player for an action. hit or stay
 void GameDisplay::promptPlayerAction()
 {
 	int action = 1;
@@ -62,70 +68,44 @@ void GameDisplay::promptPlayerAction()
 	}
 }
 
+//handle all the display stuff for end of game
 void GameDisplay::endRound()
 {
+	cout << "Player's turn is over" << endl;
 	bool dealerWins = false;
 	bool playerWins = false;
-
-	if (game.getPlayer().getHand().getVal > 21)
+	game.endRound(dealerWins, playerWins);
+	if (dealerWins && playerWins)
 	{
-		cout << "Player busts" << endl;
-		dealerWins = true;
-		playerWins = false;
+		cout << "no one wins" << endl;
 	}
-	else if (game.getPlayer().getHand().getVal() == 21)
+	else if (dealerWins)
 	{
-		cout << "Player wins" << endl;
-		playerWins = true;
+		cout << "dealer wins" << endl;
 	}
 	else
 	{
-		cout << "Player holds" << endl;
-		while (game.getDealer().getHand().getVal() < 17)
-		{
-			Card c = game.getDealer().hit();
-			c.setVisible(true);
-			game.getDealer().getHand().addCard(c);
-		}
-		if (game.getDealer().getHand().getVal() > 21)
-		{
-			cout << "Dealer busts, player wins" << endl;
-			playerWins = true;
-			dealerWins = false;
-		}
-		else if (game.getDealer().getHand().getVal() == 21)
-		{
-			cout << "Dealer wins" << endl;
-			dealerWins = true;
-		}
-		else
-		{
-			if (game.getPlayer().getHand().getVal() > game.getDealer().getHand().getVal())
-			{
-				cout << "Player wins" << endl;
-				playerWins = true;
-				dealerWins = false;
-			}
-			else
-			{
-				cout << "Dealer wins" << endl;
-				dealerWins = true;
-				playerWins = false;
-			}
-		}
+		cout << "player wins" << endl;
 	}
+	showDealerCards();
+	cout << "Dealer has: " << game.getDealer().getHand().getVal() << endl;
+	cout << "Player balance: " << game.getPlayer().getPlayerBalance() << endl;
 }
 
-
+//the main entry point into the game
+//this will repeat until the player has no money.
 void GameDisplay::startGame()
 {
 	while (game.getPlayer().getPlayerBalance() > 0)
 	{
+		game.startGame();
+		cout << "Player Balance: " << game.getPlayer().getPlayerBalance() << endl;
 		placeBet();
 		game.getDealer().dealCard();
 		game.getDealer().dealCard(game.getPlayer());
 		showDealerCards();
 		showPlayerCards();
 		promptPlayerAction();
+		endRound();
 	}
 }

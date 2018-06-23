@@ -10,6 +10,7 @@ public:
 	void setPlayerBalance(int val) { playerBalance = val; }
 	Hand& getHand() { return hand; }
 	void setHand(Hand val) { hand = val; }
+	void clearHand();
 private:
 	int playerBalance = 100;
 	Hand hand;

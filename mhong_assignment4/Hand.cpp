@@ -22,11 +22,13 @@ string Hand::toString()
 	return ret;
 }
 
+//add a card to the hand
 void Hand::addCard(Card & c)
 {
 	cards.push_back(c);
 }
 
+//get the numerical value of a hand if playing black jack
 int Hand::getVal()
 {
 	int total = 0;
@@ -43,5 +45,20 @@ int Hand::getVal()
 			total += cardToIntMap2[c->getVal()];
 		}
 	}
-	return 0;
+	return total;
+}
+
+//make all the cards visible
+void Hand::showAllCards()
+{
+	for (auto c = cards.begin(); c != cards.end(); ++c)
+	{
+		c->setVisible(true);
+	}
+}
+
+//clear the cards
+void Hand::clear()
+{
+	cards.clear();
 }

@@ -17,6 +17,11 @@ public:
 	void setPlayer(Player val) { player = val; }
 	Dealer & getDealer() { return dealer; }
 	void setDealer(Dealer val) { dealer = val; }
+	void endRound(bool & dealerWins, bool & playerWins);
+	int getPlayerBet() const { return playerBet; }
+	void setPlayerBet(int val) { playerBet = val; }
+	void startGame();
+
 private:
 	int playerBet = 0;
 	Player player;
